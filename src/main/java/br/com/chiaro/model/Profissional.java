@@ -1,5 +1,6 @@
 package br.com.chiaro.model;
 
+import br.com.chiaro.dto.request.DadosAtualizacaoProfissional;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,5 +35,20 @@ public class Profissional {
     private String corAgenda; // Ex: #FF5733 (Para diferenciar no calendário)
 
     private Boolean ativo = true;
+
+    public void atualizarInformacoes(DadosAtualizacaoProfissional dados) {
+        if (dados.nome() != null) this.nome = dados.nome();
+        if (dados.cro() != null) this.cro = dados.cro();
+        if (dados.corAgenda() != null) this.corAgenda = dados.corAgenda();
+        if (dados.especialidades() != null) {
+            this.especialidades.clear();
+            this.especialidades.addAll(dados.especialidades());
+        }
+    }
+
+    public void inativar() {
+        this.ativo = false;
+        this.usuario.inativar();
+    }
 
 }

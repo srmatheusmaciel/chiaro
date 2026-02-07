@@ -43,12 +43,13 @@ public class Usuario implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime atualizadoEm;
 
-    // --- Métodos do UserDetails (Spring Security) ---
+    public void inativar() {
+        this.ativo = false;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Converte o Perfil (Enum) para uma Authority do Spring Security
-        // Ex: ROLE_ADMIN, ROLE_DENTISTA
         return List.of(new SimpleGrantedAuthority("ROLE_" + perfil.name()));
     }
 
